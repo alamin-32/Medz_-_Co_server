@@ -19,6 +19,7 @@ async function run() {
     try {
         await client.connect();
         const productsCollection = client.db('medz_app').collection('products')
+        const ordersCollection = client.db('medz_app').collection('orders')
 
 
         app.get('/products', async (req, res) => {
@@ -38,6 +39,17 @@ async function run() {
             res.send(products);
 
         })
+
+        // app.post('/products', async (req, res) => {
+        //     // const id = req.params.id;
+        //     // const query = { _id: ObjectId(id) }
+        //     const orders = req.body
+        //     const result = await ordersCollection.insertOne(orders)
+        //     res.send(result)
+        // })
+
+
+
     }
 
 
