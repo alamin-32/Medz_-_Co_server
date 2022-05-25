@@ -52,13 +52,13 @@ async function run() {
             res.send(users)
         });
 
-        app.delete('/users/:id', async (req, res) => {
-            const id = req.params.id;
-            console.log(id, query);
-            const query = { _id: ObjectId(id) };
-            const result = await usersCollection.deleteOne(query)
-            res.send(result)
-        })
+        // app.delete('/users/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     console.log(id);
+        //     const query = { _id: ObjectId(id) };
+        //     const result = await usersCollection.deleteOne(query)
+        //     res.send(result)
+        // })
 
 
         app.get('/products/:id', async (req, res) => {
@@ -68,7 +68,6 @@ async function run() {
             console.log(id);
             console.log(query);
             res.send(products);
-
         })
 
         app.get('/orders', async (req, res) => {
