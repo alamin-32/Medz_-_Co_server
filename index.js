@@ -40,6 +40,14 @@ async function run() {
 
         })
 
+        app.get('/orders', async (req, res) => {
+            const user = req.query.email;
+            const query = { user: email }
+            const orders = await ordersCollection.find(query).toArray()
+            res.send(orders)
+        })
+        
+
         app.post('/orders', async (req, res) => {
             const orders = req.body
             const result = await ordersCollection.insertOne(orders)
@@ -48,8 +56,9 @@ async function run() {
 
         app.put('/products/:id', async (req, res) => {
             const id = req.params.id;
-            const query = { _id: ObjectId(id) };
             const newQuantity = req.body
+            console.log(newQuantity);
+            const query = { _id: ObjectId(id) };
             const options = { upsert: true }
             const updateDoc = {
                 $set: {
