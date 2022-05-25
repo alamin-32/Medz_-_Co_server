@@ -20,6 +20,7 @@ async function run() {
         await client.connect();
         const productsCollection = client.db('medz_app').collection('products')
         const ordersCollection = client.db('medz_app').collection('orders')
+        const usersCollection = client.db('medz_app').collection('users')
 
 
         app.get('/products', async (req, res) => {
@@ -28,6 +29,20 @@ async function run() {
             const products = await cursor.toArray()
             res.send(products)
         });
+
+        
+        // user add site
+        app.put('/users/:email', async (req, res) => {
+            const email = req.params.email
+            const users = req.body
+            const filter = { email: email }
+            const options = { upsert: true }
+            const updateDoc = {
+                $set: users,
+            }
+            const result = await usersCollection.updateOne(filter, updateDoc, options)
+            res.send(result)
+        })
 
 
         app.get('/products/:id', async (req, res) => {
