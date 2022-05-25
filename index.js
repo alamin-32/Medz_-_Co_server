@@ -43,7 +43,7 @@ async function run() {
             const result = await usersCollection.updateOne(filter, updateDoc, options)
             res.send(result)
         })
-        
+
 
         app.get('/users', async (req, res) => {
             const query = {}
