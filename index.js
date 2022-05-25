@@ -30,7 +30,7 @@ async function run() {
             res.send(products)
         });
 
-        
+
         // user add site
         app.put('/users/:email', async (req, res) => {
             const email = req.params.email
@@ -43,6 +43,16 @@ async function run() {
             const result = await usersCollection.updateOne(filter, updateDoc, options)
             res.send(result)
         })
+        
+
+        app.get('/users', async (req, res) => {
+            const query = {}
+            const cursor = usersCollection.find(query)
+            const users = await cursor.toArray()
+            res.send(users)
+        });
+
+
 
 
         app.get('/products/:id', async (req, res) => {
