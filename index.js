@@ -53,7 +53,7 @@ async function run() {
             const options = { upsert: true }
             const updateDoc = {
                 $set: {
-                    availableQuantity: newQuantity.updateQuantity
+                    available: newQuantity.updateQuantity
                 }
             }
             const result = await productsCollection.updateOne(query, updateDoc, options);
