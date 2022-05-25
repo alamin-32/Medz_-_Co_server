@@ -40,13 +40,11 @@ async function run() {
 
         })
 
-        // app.post('/products', async (req, res) => {
-        //     // const id = req.params.id;
-        //     // const query = { _id: ObjectId(id) }
-        //     const orders = req.body
-        //     const result = await ordersCollection.insertOne(orders)
-        //     res.send(result)
-        // })
+        app.post('/orders', async (req, res) => {
+            const orders = req.body
+            const result = await ordersCollection.insertOne(orders)
+            res.send(result)
+        })
 
 
 
