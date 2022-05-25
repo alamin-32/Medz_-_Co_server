@@ -52,7 +52,12 @@ async function run() {
             res.send(users)
         });
 
-
+        app.delete('/users/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await usersCollection.deleteOne(query)
+            res.send(result)
+        })
 
 
         app.get('/products/:id', async (req, res) => {
@@ -93,6 +98,8 @@ async function run() {
             const result = await productsCollection.updateOne(query, updateDoc, options);
             res.send(result);
         })
+
+
 
 
     }
