@@ -31,7 +31,20 @@ async function run() {
         });
 
 
-        // user add site
+        // admin
+        app.put('/users/admin/:email', async (req, res) => {
+            const email = req.params.email
+            const filter = { email: email }
+            const updateDoc = {
+                $set: { role: 'admin' },
+            }
+            const result = await usersCollection.updateOne(filter, updateDoc)
+            res.send(result)
+        })
+
+
+
+        // user add site 
         app.put('/users/:email', async (req, res) => {
             const email = req.params.email
             const users = req.body
@@ -51,15 +64,6 @@ async function run() {
             const users = await cursor.toArray()
             res.send(users)
         });
-
-        // app.delete('/users/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     console.log(id);
-        //     const query = { _id: ObjectId(id) };
-        //     const result = await usersCollection.deleteOne(query)
-        //     res.send(result)
-        // })
-
 
         app.get('/products/:id', async (req, res) => {
             const id = req.params.id;
