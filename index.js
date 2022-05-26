@@ -31,6 +31,13 @@ async function run() {
             res.send(products)
         });
 
+        // add product
+        app.post('/products', async (req, res) => {
+            const newProduct = req.body
+            const result = await productsCollection.insertOne(newProduct)
+            req.send(result)
+        })
+
 
         // admin
         app.put('/users/admin/:email', async (req, res) => {
