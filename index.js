@@ -57,7 +57,6 @@ async function run() {
         })
 
 
-
         // delete product
         app.delete('/products/:id', async (req, res) => {
             const id = req.params.id;
@@ -65,14 +64,6 @@ async function run() {
             const result = await productsCollection.deleteOne(query)
             res.send(result)
         })
-
-
-
-
-
-
-
-
 
         // admin area
         app.put('/users/admin/:email', async (req, res) => {
@@ -84,16 +75,6 @@ async function run() {
             const result = await usersCollection.updateOne(filter, updateDoc)
             res.send(result)
         })
-
-
-
-
-
-
-
-
-
-
 
 
         // user add site 
