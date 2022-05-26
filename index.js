@@ -48,13 +48,11 @@ async function run() {
         // user add site 
         app.put('/users/:email', async (req, res) => {
             const email = req.params.email
-            const users = req.body
             const filter = { email: email }
-            const options = { upsert: true }
             const updateDoc = {
-                $set: users,
+                $set: { role: 'admin' },
             }
-            const result = await usersCollection.updateOne(filter, updateDoc, options)
+            const result = await usersCollection.updateOne(filter, updateDoc)
             // const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
             res.send(result)
         })
