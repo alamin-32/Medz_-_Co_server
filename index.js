@@ -22,6 +22,7 @@ async function run() {
         const productsCollection = client.db('medz_app').collection('products')
         const ordersCollection = client.db('medz_app').collection('orders')
         const usersCollection = client.db('medz_app').collection('users')
+        const reviewsCollection = client.db('medz_app').collection('reviews')
 
 
         app.get('/products', async (req, res) => {
@@ -38,9 +39,18 @@ async function run() {
             const result = await productsCollection.insertOne(newProduct)
             res.send(result)
         })
+        // review
+        app.post('/reviews', async (req, res) => {
+            const newReview = req.body
+            console.log(newReview);
+            const result = await reviewsCollection.insertOne(newReview)
+            res.send(result)
+        })
+
+
 
         // delete product
-        app.delete('/products/:id',async(req,res)=>{
+        app.delete('/products/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await productsCollection.deleteOne(query)
