@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors');
 require('dotenv').config()
 const app = express()
-// const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 const port = process.env.PORT || 5000
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
@@ -40,26 +40,12 @@ async function run() {
             res.send(result)
         })
 
-
-
-        
-
-
         app.get('/reviews', async (req, res) => {
             const query = {}
             const cursor = reviewsCollection.find(query)
             const result = await cursor.toArray()
             res.send(result)
         });
-
-
-
-
-
-
-
-
-
 
         // review
         app.post('/reviews', async (req, res) => {
@@ -80,7 +66,14 @@ async function run() {
         })
 
 
-        // admin
+
+
+
+
+
+
+
+        // admin area
         app.put('/users/admin/:email', async (req, res) => {
             const email = req.params.email
             const filter = { email: email }
@@ -90,6 +83,15 @@ async function run() {
             const result = await usersCollection.updateOne(filter, updateDoc)
             res.send(result)
         })
+
+
+
+
+
+
+
+
+
 
 
 
@@ -107,6 +109,16 @@ async function run() {
         })
 
 
+
+
+
+
+
+
+
+
+
+        
         app.get('/users', async (req, res) => {
             const query = {}
             const cursor = usersCollection.find(query)
