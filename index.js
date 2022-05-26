@@ -39,7 +39,7 @@ async function run() {
             const result = await productsCollection.insertOne(newProduct)
             res.send(result)
         })
-        
+
         // review
         app.post('/reviews', async (req, res) => {
             const newReview = req.body
@@ -75,12 +75,13 @@ async function run() {
         // user add site 
         app.put('/users/:email', async (req, res) => {
             const email = req.params.email
+            const users = req.body
             const filter = { email: email }
+            const options = { upsert: true }
             const updateDoc = {
-                $set: { role: 'admin' },
+                $set: users,
             }
-            const result = await usersCollection.updateOne(filter, updateDoc)
-            // const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
+            const result = await usersCollection.updateOne(filter, updateDoc, options)
             res.send(result)
         })
 
