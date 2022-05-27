@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const port = process.env.PORT || 5000
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const verify = require('jsonwebtoken/verify');
+const { response } = require('express');
 
 app.use(cors())
 app.use(express.json())
@@ -93,26 +94,23 @@ async function run() {
 
 
 
-        // app.put('/users/:email', async(req, res) =>{
-        //     const email = req.params.email;
-        //     const user = req.body;
-        //     const filter = {email: email};
-        //     const options = {upsert: true};
-        //     const updateDoc ={
-        //         $set: {
-        //                 name: users.name,
-        //                 occupation: users.occupation,
-        //                 number: users.number,
-        //                 address: users.address,
-        //                 description: users.description,
-        //         }
-        //     }
-        //     const result = await usersCollection.updateOne(filter, updateDoc, options);
-        //     res.send(result);
-        // })
 
 
-
+        app.get('/users/admin/:email', async (req, res) => {
+            const email = req.params.email;
+            const user = await usersCollection.findOne({ email: email });
+            const isAdmin = user?.role === 'admin';
+            if (isAdmin) {
+                res.send({
+                    result: true
+                })
+            }
+            else {
+                res.send({
+                    result: false
+                })
+            }
+        })
 
 
 
